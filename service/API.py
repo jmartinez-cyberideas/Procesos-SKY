@@ -10,7 +10,8 @@ def CuentaNueva():
     cve_supervisor:     [3]
     cve_usuario:        [4] 
     fechaCorte:         [5] 
-    tipoCancelacion:    [6] 
+    tipoCancelacion:    [6]
+    DN:                 [7] 
     
     paises:
     "Mexico", "Costa Rica", "Panama", "Nicaragua", "El Salvador", " R. Dominicana", "Guatemala", "Honduras"
@@ -28,10 +29,10 @@ def CuentaNueva():
     MX_bti_standar = ['501117384377','81-143696540563', 'Mexico','cve_supervisor','cve_usuario', '2022-08-03','modem_combo']
     
     #BTCEL
-    MX_btcel = ['501032165406','81', 'Mexico','cve_supervisor','cve_usuario', '2022-08-03','btcel_combo']
+    MX_btcel = ['501032165406','81-143696540565', 'Mexico','cve_supervisor','cve_usuario', '2022-08-03','btcel_combo',['Slave1']] #Si pueden se mas de 1
 
     
-    return MX_bti_standar
+    return MX_btcel
 
 
 #def authenticate(address, username, password):

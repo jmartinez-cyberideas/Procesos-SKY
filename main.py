@@ -96,7 +96,7 @@ def main():
         errorCancelar = 0
         while errorCancelar==0:
             try:
-                cancelarEquipos(datosAPI[6],detallesCuenta['tipo'])
+                cancelarEquipos(datosAPI[6],detallesCuenta['tipo'],dn=datosAPI[7])
                 errorCancelar = 1
                 # print('Flag cancelar equipos:',errorCancelar)
             except Exception as e:
@@ -114,7 +114,7 @@ def main():
         fechaCambiada =0
         while fechaCambiada == 0 :
             try:
-                confirmacionCancelacion(fechaCorte,datosAPI[6])
+                confirmacionCancelacion(fechaCorte,datosAPI[6] )
                 fechaCambiada =1
             except Exception as e:
                 print('ERROR AL ESCRIBIR FECHA DE CORTE \n',e)

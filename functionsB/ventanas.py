@@ -31,12 +31,28 @@ def CambiarPais(pais):
     #-----------------PAISES A ESCOGER-----------------------
     if pais == 'El Salvador':    
         ai.send('{DOWN 16}')
+        
     elif pais== 'Costa Rica': 
         ai.send('{DOWN 3}') 
-    elif pais == 'Panama': #Panama
+        
+    elif pais == 'Panama': 
         ai.send('{DOWN 8}')
+        
     elif pais== 'Mexico': 
         ai.send('{DOWN}')    
+    
+    elif pais== 'Nicaragua': 
+        ai.send('{DOWN 4}')
+        
+    elif pais== 'R. Dominicana': 
+        ai.send('{DOWN 5}')
+    
+    elif pais== 'Guatemala': 
+        ai.send('{DOWN 7}')
+    
+    elif pais== 'Honduras': 
+        ai.send('{DOWN 7}')
+        
     else:
         print('NO se encontró país')
         return 0
@@ -281,7 +297,7 @@ def cancelacionExistente():
         
     sleep(6)
     
-def cancelarEquipos(tipoCancelacion, tipoCuenta):
+def cancelarEquipos(tipoCancelacion, tipoCuenta, dn = []):
     '''Esta funcion desconecta todos los equipos de manera jerarquica
     fechacorte:L el dia que se aplicaran los cambios'''
     printBox('Cancelacion de equipos')
@@ -342,7 +358,40 @@ def cancelarEquipos(tipoCancelacion, tipoCuenta):
             print('Cuenta tradicional, no lleva motivo')
     else: #CAncelacion telefonica
         print('Cancelacion BTCEL')
-
+        sleep(3)
+        ordenarEquipos()
+        sleep(2)
+        ai.send('{TAB 2}') #Primer equipo en la lista
+        for i in range(len(dn)):
+            busqueda = 0
+            while busqueda ==0:
+                equipo = copyPaste()
+                if equipo == dn[i]: #AKI BUSCA EL DN que recibe de la API 
+                    ai.send('{SHIFT}+{TAB}')
+                    sleep(1)
+                    ai.send('Disconnect')
+                    print('Desconectado: ', dn[i])
+                    sleep(10)
+                    ai.send('{TAB}')
+                    #ESTO ES PARA REGRESAR AL PRIMER ELEMENTO
+                    ai.send('{UP 500}')
+                    ai.send('{TAB}')
+                    sleep(1)
+                    ai.send('{SHIFT}+{TAB}')
+                    print('INICIO')
+                    sleep(2)
+                    busqueda = 1
+                else:
+                    try:
+                        ai.send('{DOWN}')
+                    except:
+                        print('NO se encotro el equipo: ', dn[i])
+                        busqueda = 0
+                        
+        return busqueda
+                
+                
+                
 def confirmacionCancelacion(fechaCorte, tipoCuenta):
     printBox('Confirmacion de cancelacion')
    
@@ -355,10 +404,11 @@ def confirmacionCancelacion(fechaCorte, tipoCuenta):
     
     sleep(3)
     ventanaSiebel = ai.win_get_title('[ACTIVE]')
-        
+    ai.send('{TAB 3}') #LOS PONE A TODOS EN LA FECHA
+    
     if tipoCuenta == 'single_video':
         print('Single Video')
-        ai.send('{TAB 3}')
+        
         ai.control_click(ventanaSiebel,'[CLASS:Edit; INSTANCE:17]') #feCHA
     
         #primero debes de saber que dia es hoy
@@ -395,6 +445,7 @@ def confirmacionCancelacion(fechaCorte, tipoCuenta):
         ai.send('CANCELACION MODEM')
     else: 
         sleep(3)
+        print('NO lleva comentario')
     #     ai.control_click(ventanaSiebel,'[CLASS:Edit; INSTANCE:21]')
     #     sleep(2)
     #     cleanField()
