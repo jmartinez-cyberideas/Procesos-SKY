@@ -101,7 +101,7 @@ def main():
                 # print('Flag cancelar equipos:',errorCancelar)
             except Exception as e:
                 print('ERROR AL CANCELAR EQUIPOS: \n',e)
-                intentos =+1
+                intentos +=1
                 click(co.barraPantallas['solicitudes'],2)
                 sleep(2)
                 if intentos == 3:

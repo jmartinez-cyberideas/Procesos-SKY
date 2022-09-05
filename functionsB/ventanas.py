@@ -51,7 +51,7 @@ def CambiarPais(pais):
         ai.send('{DOWN 7}')
     
     elif pais== 'Honduras': 
-        ai.send('{DOWN 7}')
+        ai.send('{DOWN 11}')
         
     else:
         print('NO se encontró país')
@@ -297,7 +297,7 @@ def cancelacionExistente():
         
     sleep(6)
     
-def cancelarEquipos(tipoCancelacion, tipoCuenta, dn = []):
+def cancelarEquipos(tipoCancelacion, tipoCuenta, dn = ['']):
     '''Esta funcion desconecta todos los equipos de manera jerarquica
     fechacorte:L el dia que se aplicaran los cambios'''
     printBox('Cancelacion de equipos')
@@ -309,14 +309,14 @@ def cancelarEquipos(tipoCancelacion, tipoCuenta, dn = []):
         ordenarEquipos()
         sleep(1)
         ai.send('{TAB}') #Primer equipo en la lista
-        for i in range(100):
+        for i in range(10):
             try:
                 print('Equipo: ',i+1)
                 sleep(2)
                 ai.send('Disconnect')
-                sleep(2)
+                sleep(3)
                 ai.send('{DOWN}')
-                print(copyPaste())
+                #print(copyPaste())
 
             except Exception as e:
                 print(e)
@@ -401,13 +401,13 @@ def confirmacionCancelacion(fechaCorte, tipoCuenta):
     click(co.barraEquipos['ordenesModificacion'])
     click([96, 936])
     click(co.barraEquipos['resumenOrden'], numClics=2) #Cambiar coordenada
-    
     sleep(3)
     ventanaSiebel = ai.win_get_title('[ACTIVE]')
+    click([552, 147])
     ai.send('{TAB 3}') #LOS PONE A TODOS EN LA FECHA
     
     if tipoCuenta == 'single_video':
-        print('Single Video')
+        print('Single Video, confirmacion')
         
         ai.control_click(ventanaSiebel,'[CLASS:Edit; INSTANCE:17]') #feCHA
     
@@ -471,9 +471,9 @@ def botonEnviar(tipoCuenta):
             # estado = cp.GetClipboardData()
             # cp.EmptyClipboard()
             # cp.CloseClipboard()
-            estado = 'Progress' #SI ESTO NO SE PUEDE COPIAR SE DEBE USAR TESSEREACT
+            estado = 'Action' #SI ESTO NO SE PUEDE COPIAR SE DEBE USAR TESSEREACT
             sleep(2)
-            'Esperando estado....'
+            print('Esperando estado....')
             if tipoCuenta == 'single_video':
                 if estado == 'Future Action' or  estado =='Action' or  estado =='Future':
                     print('Solicitud en proceso, ciclo completo')
@@ -485,6 +485,7 @@ def botonEnviar(tipoCuenta):
                     if intentos ==3:
                         return 0
             elif tipoCuenta =='modem_combo' or tipoCuenta == 'btcel_combo':
+                estado == 'Progress'
                 if estado == 'In Progress' or  estado =='Progress':
                     print('Solicitud en proceso, ciclo completo')
                     return 1
