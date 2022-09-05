@@ -15,7 +15,8 @@ barraVistas = {
     'actividades': [53, 771],
     'todasSolicitudes':[58, 263],
     'down': [96, 595],
-    'solicitud': [64, 401]
+    'solicitud': [64, 401],
+    'retencion': [58, 422]
 }
 
 

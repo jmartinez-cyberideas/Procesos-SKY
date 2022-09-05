@@ -45,6 +45,13 @@ def copyPaste():
     sleep(2)
     return aux
 
+def cleanField():
+    '''Limpia el campo sobre el que se va escribir'''
+    sleep(2)
+    ai.send(bt.btnSeleccion)
+    ai.send('{BS}')
+    
+
 
 #printBox('PEDRO JUAN CARAL ERIK')
 #kill('siebel.exe')
